@@ -19,7 +19,7 @@ if uploaded_files:
 if st.button("Enviar"):
     if uploaded_files:
         images_base64 = [base64.b64encode(file.read()).decode('utf-8') for file in uploaded_files]
-        url = "http://radically-inspired-dodo.ngrok-free.app/id-ocr"  # Ajusta la URL según tu entorno
+        url = "https://radically-inspired-dodo.ngrok-free.app/id-ocr"  # Ajusta la URL según tu entorno
         payload = {"images": images_base64}
         headers = {"Content-Type": "application/json"}
         response = requests.post(url, json=payload, headers=headers)
@@ -49,7 +49,7 @@ if "ocr_result" in st.session_state:
             form_data[key] = st.text_input(key, value)
         if st.form_submit_button("Chequeado"):
             payload = {"type": data.get("type", "N/A"), "text_data": form_data}
-            url = "http://radically-inspired-dodo.ngrok-free.app/checked"  # Ajusta la URL según tu entorno
+            url = "https://radically-inspired-dodo.ngrok-free.app/checked"  # Ajusta la URL según tu entorno
             headers = {"Content-Type": "application/json"}
             response = requests.post(url, json=payload, headers=headers)
             if response.ok:
