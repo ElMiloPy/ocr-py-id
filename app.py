@@ -22,7 +22,8 @@ if st.button("Enviar"):
         url = "https://radically-inspired-dodo.ngrok-free.app/id-ocr"  # Ajusta la URL según tu entorno
         payload = {"images": images_base64}
         headers = {"Content-Type": "application/json"}
-        response = requests.post(url, json=payload, headers=headers)
+        # Deshabilitamos la verificación SSL para evitar el error (solo para desarrollo)
+        response = requests.post(url, json=payload, headers=headers, verify=False)
         try:
             result = response.json()
         except Exception:
@@ -37,7 +38,7 @@ if st.button("Enviar"):
     else:
         st.warning("Selecciona al menos una imagen.")
 
-# 3. Mostrar el formulario prellenado y, al pulsar "Checked", enviar los datos al endpoint /checked
+# 3. Mostrar el formulario prellenado y, al pulsar "Chequeado", enviar los datos al endpoint /checked
 if "ocr_result" in st.session_state:
     data = st.session_state.ocr_result
     st.subheader("Formulario OCR")
@@ -51,7 +52,8 @@ if "ocr_result" in st.session_state:
             payload = {"type": data.get("type", "N/A"), "text_data": form_data}
             url = "https://radically-inspired-dodo.ngrok-free.app/checked"  # Ajusta la URL según tu entorno
             headers = {"Content-Type": "application/json"}
-            response = requests.post(url, json=payload, headers=headers)
+            # Se añade verify=False aquí también para evitar errores SSL
+            response = requests.post(url, json=payload, headers=headers, verify=False)
             if response.ok:
                 st.success("¡¡Gracias por probar la demo!!")
             else:
