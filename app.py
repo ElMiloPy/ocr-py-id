@@ -49,7 +49,7 @@ if "ocr_result" in st.session_state:
             form_data[key] = st.text_input(key, value)
         if st.form_submit_button("Chequeado"):
             payload = {"type": data.get("type", "N/A"), "text_data": form_data}
-            url = "http://192.168.251.158:8000/checked"  # Ajusta la URL según tu entorno
+            url = "https://radically-inspired-dodo.ngrok-free.app/checked"  # Ajusta la URL según tu entorno
             headers = {"Content-Type": "application/json"}
             response = requests.post(url, json=payload, headers=headers)
             if response.ok:
