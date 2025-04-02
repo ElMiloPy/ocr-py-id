@@ -2,7 +2,7 @@ import streamlit as st
 import base64, requests
 from datetime import datetime
 
-st.title("OCR de Cédulas o Pasaportes - Demo")
+st.title("OCR de Cédulas o Pasaportes")
 
 # 1. Seleccionar imágenes (máximo 2) y previsualizarlas en una fila
 uploaded_files = st.file_uploader("Selecciona imágenes (máximo 2)", accept_multiple_files=True, type=['png','jpg','jpeg'])
