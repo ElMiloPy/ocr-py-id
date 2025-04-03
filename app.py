@@ -2,6 +2,10 @@ import streamlit as st
 import base64, requests
 from PIL import Image
 from io import BytesIO
+from pillow_heif import register_heif_opener
+
+# Registra el "opener" para que Pillow soporte HEIC
+register_heif_opener()
 
 # Imagen base64 embebida
 icon_base64 = """
@@ -22,7 +26,7 @@ st.set_page_config(
 st.title("OCR de Cédulas o Pasaportes")
 
 # 1. Seleccionar imágenes (máximo 2) y previsualizarlas en una fila
-uploaded_files = st.file_uploader("Selecciona imágenes (máximo 2)", accept_multiple_files=True, type=['png','jpg','jpeg'])
+uploaded_files = st.file_uploader("Selecciona imágenes (máximo 2)", accept_multiple_files=True, type=['png','jpg','jpeg', 'dng'])
 if uploaded_files:
     if len(uploaded_files) > 2:
         st.warning("Solo se procesarán las primeras 2 imágenes.")
