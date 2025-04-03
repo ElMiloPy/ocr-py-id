@@ -2,10 +2,6 @@ import streamlit as st
 import base64, requests
 from PIL import Image
 from io import BytesIO
-from pillow_heif import register_heif_opener
-
-# Registra el "opener" para que Pillow soporte HEIC
-register_heif_opener()
 
 # Imagen base64 embebida
 icon_base64 = """
