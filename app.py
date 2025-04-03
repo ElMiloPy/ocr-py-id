@@ -1,6 +1,17 @@
 import streamlit as st
 import base64, requests
 from datetime import datetime
+from PIL import Image
+
+# Carga la imagen del ícono
+icon = Image.open("ocr-demo-logo.png")
+
+# Configura el título e ícono de la página
+st.set_page_config(
+    page_title="OCR DEMO",
+    page_icon=icon,
+    layout="wide"
+)
 
 st.title("OCR de Cédulas o Pasaportes")
 
