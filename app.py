@@ -21,6 +21,11 @@ st.set_page_config(
 
 st.title("OCR de Cédulas o Pasaportes")
 
+if 'run_button' in st.session_state and st.session_state.run_button == True:
+    st.session_state.running = True
+else:
+    st.session_state.running = False
+
 # 1. Seleccionar imágenes (máximo 2) y previsualizarlas en una fila
 uploaded_files = st.file_uploader("Selecciona imágenes (máximo 2)", accept_multiple_files=True, type=['png','jpg','jpeg', 'dng'])
 if uploaded_files:
@@ -33,15 +38,19 @@ if uploaded_files:
             cols[i].image(file, caption=file.name, use_container_width=True)
 
 # 2. Llamada al servidor para obtener los datos del OCR
-if st.button("Enviar"):
+if st.button("Enviar", disabled=st.session_state.running, key='run_button'):
+    status = st.progress(0)
     if uploaded_files:
         images_base64 = [base64.b64encode(file.read()).decode('utf-8') for file in uploaded_files]
+        status.progress(33)
         url = "https://radically-inspired-dodo.ngrok-free.app/id-ocr"  # Ajusta la URL según tu entorno
         payload = {"images": images_base64}
         headers = {"Content-Type": "application/json"}
         response = requests.post(url, json=payload, headers=headers)
+        status.progress(66)
         try:
             result = response.json()
+            status.progress(100)
         except Exception:
             st.error("Error al decodificar la respuesta del servidor")
             result = {}
@@ -53,6 +62,7 @@ if st.button("Enviar"):
             st.error(error_msg)
     else:
         st.warning("Selecciona al menos una imagen.")
+    st.rerun()
 
 # 3. Mostrar el formulario prellenado y, al pulsar "Checked", enviar los datos al endpoint /checked
 if "ocr_result" in st.session_state:
