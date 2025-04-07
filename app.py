@@ -90,7 +90,7 @@ if st.button("Enviar", disabled=st.session_state.running, key='run_button'):
     except Exception as e:
         st.error("Error al procesar la solicitud, se despliega formulario por defecto")
         default_data = { key: "" for key in NAMES }
-        st.session_state.ocr_result = { "type": "error", "text_data": default_data }
+        st.session_state.ocr_result = { "type": "No detectado", "text_data": default_data }
     st.rerun()
 
 # 3. Mostrar el formulario prellenado y, al pulsar "Chequeado", enviar los datos al endpoint /checked
