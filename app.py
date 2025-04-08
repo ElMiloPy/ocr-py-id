@@ -56,6 +56,23 @@ else:
 
 # 1. Seleccionar imágenes (máximo 2) y previsualizarlas en una fila
 uploaded_files = st.file_uploader("Selecciona imágenes (máximo 2)", accept_multiple_files=True, type=['png','jpg','jpeg', 'dng'])
+st.html(
+"""
+<style>
+  [data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"] {
+    text-indent: -9999px;
+    line-height: 0;
+  }
+
+  [data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"]::after {
+    line-height: initial;
+    content: "Subir imagen de la Galería";
+    text-indent: 0;
+  }
+</style>
+
+"""
+)
 if uploaded_files:
     if len(uploaded_files) > 2:
         st.warning("Solo se procesarán las primeras 2 imágenes.")
